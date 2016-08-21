@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "system",
+		"target": "es6"
+    },
+	"fileGlobs": [
+		"src/**/*.ts",
+		"typings/index.d.ts"
+	],
+    "exclude": [
+        "node_modules",
+		"bower_components",
+		"jspm_packages"
+    ]
+}
