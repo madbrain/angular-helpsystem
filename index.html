@@ -70,22 +70,12 @@
                 <button id="submit" type="submit" class="btn btn-default">Submit</button>
             </form>
 
-            <div class="glass-pane" ng-show="ctrl.helpOpened" ng-cloak>
-
-                <div class="help-toolbar">
-                    <button type="button" ng-click="ctrl.previousHelp()" class="btn btn-link btn-lg">
-                        <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span></button>
-                    <button type="button" ng-click="ctrl.closeHelp()" class="btn btn-link btn-lg">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></button>
-                    <button type="button" ng-click="ctrl.nextHelp()" class="btn btn-link btn-lg">
-                        <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></button>
-                </div>
-
+            <help-pane>
                 <input type="email" id="help-email" class="form-control" id="exampleInputEmail1" placeholder="Email" help-id="exampleInputEmail1">
                 <button type="submit" id="help-submit" class="btn btn-default" help-id="submit">Submit</button>
 
                 <p class="help-text" id="help-text1" help-relative="help-email"
-                    help-position="south" help-offset="70,50" style="width: 400px">Taper votre email, par exemple mr.dupont@company.com</p>
+                    help-position="bottom" help-offset="70,50" style="width: 400px">Taper votre email, par exemple mr.dupont@company.com</p>
                 <p class="help-text" id="help-text2" help-relative="help-submit"
                     help-position="right" help-offset="120,0">Quand tout est bon, appuyer sur envoyer</p>
                 
@@ -97,7 +87,7 @@
                     <path d="M100,20 L10,20 M30,30 L10,20 L30,10"
                             style="stroke: #fff; stroke-width: 5px; fill: none"/>
                 </svg>
-            </div>
+            </help-pane>
 
         </div>
         
