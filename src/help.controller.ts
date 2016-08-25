@@ -3,27 +3,47 @@ type ElementMap = { [key:string]: ElementNode; };
 
 export class HelpController {
 
-    private isOpened = false;
+    public isOpened = false;
+    public sliderIndex = 0;
+    public sliderOptions = {
+	    ceil: 1,
+        hidePointerLabels: true,
+        hideLimitLabels: true,
+        onChange: null,
+    };
     private orderedNodes: ElementNode[] = [];
 
-    constructor(private $element: JQuery, $rootScope: angular.IRootScopeService, $transclude: angular.ITranscludeFunction) {
+    constructor(private $element: JQuery, $rootScope: angular.IRootScopeService,
+            $window: angular.IWindowService, $transclude: angular.ITranscludeFunction) {
         $element.find('.glass-pane').append($transclude());
         this.buildNodeOrder();
         this.placeNodes();
         $rootScope.$on('help:open', (e) => {
             this.isOpened = true;
         });
-        // TODO on resize call placeNodes()
+        angular.element($window).bind('resize', () => {
+            this.placeNodes();
+	    });
+        this.sliderOptions.onChange = this.changeIndex.bind(this);
+    }
+
+    private changeIndex() {
+        this.orderedNodes.forEach((node, index) => {
+            node.display( this.sliderIndex);
+        });
     }
 
     private buildNodeOrder() {
         let nodes: ElementNode[] = [];
         let nodesById: ElementMap = {};
-        this.findElements('help-id', nodes, nodesById, true);
+        this.findElements('help-widget', nodes, nodesById, true);
         this.findElements('help-relative', nodes, nodesById, false);
+
+        var maxStep = -1;
         nodes.forEach((node) => {
-            node.resolve(nodesById);
+            maxStep = Math.max(maxStep, node.resolve(nodesById));
         });
+        this.sliderOptions.ceil = maxStep;
         // TODO detect cycles: after one passage almost one node must have been removed 
         while (nodes.length > 0) {
             let node = nodes.shift();
@@ -48,6 +68,7 @@ export class HelpController {
 
     private placeNodes() {
         this.orderedNodes.forEach((node) => {
+            node.display(this.sliderIndex);
             node.place();
         });
     }
@@ -67,19 +88,35 @@ export class HelpController {
 
 class ElementNode {
 
+    private stepIndex = -1;
     private parent: ElementNode;
 
     constructor(private element: JQuery, private parentName: string, private isWidget: boolean) {
+        var step = this.element[0].getAttribute('help-step');
+        if (angular.isDefined(step)) {
+            this.stepIndex = parseInt(step); 
+        }
     }
 
-    public resolve(nodes: ElementMap) {
+    public resolve(nodes: ElementMap): number {
         if (this.parentName != undefined) {
             this.parent = nodes[this.parentName];
         }
+        return this.stepIndex;
     }
 
     public hasParentIn(nodes: ElementNode[]) {
         return angular.isUndefined(this.parent) || nodes.indexOf(this.parent) >= 0;
+    }
+
+    public display(visibleIndex: number) {
+        if (this.stepIndex >= 0) {
+            if (this.stepIndex === visibleIndex) {
+                this.element.css('display', '');
+            } else {
+                this.element.css('display', 'none');
+            }
+        }
     }
 
     // TODO Use polymorphism

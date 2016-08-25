@@ -3,6 +3,7 @@
     <head>
             <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
             <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+            <link rel="stylesheet" type="text/css" href="bower_components/angularjs-slider/dist/rzslider.css"/>
             <link rel="stylesheet" type="text/css" href="css/help.css">
     </head>
     <body>
@@ -71,19 +72,28 @@
             </form>
 
             <help-pane>
-                <input type="email" id="help-email" class="form-control" id="exampleInputEmail1" placeholder="Email" help-id="exampleInputEmail1">
-                <button type="submit" id="help-submit" class="btn btn-default" help-id="submit">Submit</button>
-
+                <input type="email" id="help-email" class="form-control"
+                    placeholder="Email" help-widget="exampleInputEmail1" help-step="0">
                 <p class="help-text" id="help-text1" help-relative="help-email"
-                    help-position="bottom" help-offset="70,50" style="width: 400px">Taper votre email, par exemple mr.dupont@company.com</p>
-                <p class="help-text" id="help-text2" help-relative="help-submit"
-                    help-position="right" help-offset="120,0">Quand tout est bon, appuyer sur envoyer</p>
-                
-                <svg help-relative="help-text1" help-position="right" help-offset="-50,-40" style="width: 120px; height: 110px">
+                    help-position="bottom" help-offset="70,50" help-step="0" style="width: 400px">Taper votre email, par exemple mr.dupont@company.com</p>
+                <svg help-relative="help-text1" help-position="right" help-offset="-50,-40" help-step="0" style="width: 120px; height: 110px">
                     <path d="M0,100 C90,100 100,90 100,10 M90,30 L100,10 L110,30"
                             style="stroke: #fff; stroke-width: 5px; fill: none"/>
                 </svg>
-                <svg help-relative="help-text2" help-position="left" help-offset="0,0" style="width: 110px; height: 40px">
+
+                <input type="password" id="help-password" class="form-control" placeholder="Password"
+                    help-widget="exampleInputPassword1" help-step="1">
+                <p class="help-text" id="help-text-password" help-relative="help-password"
+                    help-position="bottom" help-offset="70,90" help-step="1" style="width: 300px">Puis votre mot de passe</p>
+                <svg help-relative="help-text-password" help-position="right" help-offset="-20,-80" help-step="1" style="width: 120px; height: 110px">
+                    <path d="M0,100 C90,100 100,90 100,10 M90,30 L100,10 L110,30"
+                            style="stroke: #fff; stroke-width: 5px; fill: none"/>
+                </svg>
+                
+                <button type="submit" id="help-submit" class="btn btn-default" help-widget="submit" help-step="2">Submit</button>
+                <p class="help-text" id="help-text2" help-relative="help-submit"
+                    help-position="right" help-offset="120,0" help-step="2">Quand tout est bon, appuyer sur envoyer</p>
+                <svg help-relative="help-text2" help-position="left" help-offset="0,0" help-step="2" style="width: 110px; height: 40px">
                     <path d="M100,20 L10,20 M30,30 L10,20 L30,10"
                             style="stroke: #fff; stroke-width: 5px; fill: none"/>
                 </svg>
@@ -93,6 +103,7 @@
         
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angularjs-slider/dist/rzslider.js"></script>
         <script src="jspm_packages/system.js"></script>
         <script src="config.js"></script>
         <script src="build.js"></script>
