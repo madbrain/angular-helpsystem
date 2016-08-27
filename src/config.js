@@ -7,8 +7,8 @@ System.config({
   },
 
   packages: {
-    "src": {
-      "main": "index.module",
+    "app": {
+      "main": "index.module.ts",
       "defaultExtension": "ts",
       "meta": {
         "*.ts": {
@@ -21,6 +21,7 @@ System.config({
   map: {
     "ts": "github:frankwallis/plugin-typescript@4.0.16",
     "ts-runtime": "npm:babel-runtime@5.8.38",
+    "typescript": "npm:typescript@1.8.10",
     "github:frankwallis/plugin-typescript@4.0.16": {
       "typescript": "npm:typescript@1.8.10"
     },

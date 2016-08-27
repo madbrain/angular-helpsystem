@@ -13,6 +13,7 @@ export class HelpController {
     };
     private orderedNodes: ElementNode[] = [];
 
+    static $inject = [ '$element', '$rootScope', '$window', '$transclude' ];
     constructor(private $element: JQuery, $rootScope: angular.IRootScopeService,
             $window: angular.IWindowService, $transclude: angular.ITranscludeFunction) {
         $element.find('.glass-pane').append($transclude());
